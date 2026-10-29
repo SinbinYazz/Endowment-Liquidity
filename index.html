@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Liquidity decision room · fictional endowment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><span class="eyebrow">SOLovis interview exercise · interactive prototype</span><h1>Liquidity decision room</h1></div>
+    <span class="badge">FICTIONAL DATA · USD MILLIONS</span>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">The committee question</p><h2>Can we approve a new $20M private commitment after a market drawdown?</h2><p>Explore a 12-month stress case for a fictional $400M university endowment. All starting balances and cash-flow assumptions are illustrative.</p></div>
+      <div class="starting"><h3>Starting portfolio</h3><div><span>Cash</span><b>$20M</b></div><div><span>Marketable assets</span><b>$260M</b></div><div><span>Private NAV</span><b>$120M</b></div><div><span>Existing unfunded</span><b>$90M</b></div></div>
+    </section>
+
+    <div class="layout">
+      <aside class="controls card">
+        <div class="sectionhead"><h2>Scenario inputs</h2><button id="reset" type="button">Reset</button></div>
+        <label for="shock">Public asset shock <output id="shockValue"></output></label><input id="shock" type="range" min="0" max="60" step="1" value="25">
+        <label for="calls">Existing call pace <output id="callsValue"></output></label><input id="calls" type="range" min="0" max="200" step="10" value="100">
+        <label for="distributions">Private distributions <output id="distributionsValue"></output></label><input id="distributions" type="range" min="0" max="150" step="10" value="50">
+        <label for="commitment">Proposed commitment <output id="commitmentValue"></output></label><input id="commitment" type="range" min="0" max="40" step="1" value="20">
+        <label for="callRate">New commitment called in year 1 <output id="callRateValue"></output></label><input id="callRate" type="range" min="0" max="100" step="5" value="20">
+        <label for="gate">New-commitment approval gate <output id="gateValue"></output></label><input id="gate" type="range" min="40" max="80" step="1" value="60">
+        <div class="separator"></div>
+        <label for="sale">Illustrative secondary sale NAV <output id="saleValue"></output></label><input id="sale" type="range" min="0" max="60" step="1" value="35">
+        <label for="discount">Sale discount to NAV <output id="discountValue"></output></label><input id="discount" type="range" min="0" max="40" step="1" value="10">
+        <p class="small">Sale assumes a seasoned position with no attached unfunded commitment or forecast distributions. It is a hypothetical option, not an executable quote.</p>
+      </aside>
+
+      <div class="results">
+        <section class="card overview">
+          <div class="sectionhead"><div><p class="eyebrow">Proposed commitment approved · before first-year flows</p><h2>Decision snapshot</h2></div><span id="status" class="status"></span></div>
+          <div class="metrics"><div><span>Exposure / portfolio NAV</span><strong id="ratio"></strong><small id="ratioDetail"></small></div><div><span>Gate first trips at</span><strong id="breakpoint"></strong><small>Public asset decline, all else fixed</small></div><div><span>Cash reserve draw</span><strong id="cashMonth"></strong><small id="cashDetail"></small></div></div>
+          <p id="snapshotNote" class="note"></p>
+        </section>
+
+        <section class="card"><div class="sectionhead"><div><p class="eyebrow">Same stress, three choices</p><h2>Action comparison</h2></div></div><div id="actions" class="actions"></div></section>
+
+        <section class="card"><div class="sectionhead"><div><p class="eyebrow">Twelve-month path · proposed commitment approved</p><h2>Where cash comes from</h2></div></div><div id="bars" class="bars" role="img" aria-label="Monthly cash and marketable assets"></div><div class="legend"><span><i class="cashkey"></i> Cash</span><span><i class="marketkey"></i> Marketable assets</span></div><p id="flowNote" class="small"></p></section>
+
+        <section class="card explanation"><div class="sectionhead"><div><p class="eyebrow">Calculation-backed explanation</p><h2>Committee talking points</h2></div></div><div id="narrative"></div><details><summary>Assumptions and calculation rules</summary><div id="ledger"></div></details></section>
+      </div>
+    </div>
+    <footer>Illustrative scenario only. Policy example: <a href="https://give.fiu.edu/about/fiu-foundation/policies-procedures/foundation-ips-for-bod-approved-2.6.26_final.pdf" target="_blank" rel="noopener">FIU Foundation IPS, Appendix A</a>. This fictional endowment’s gate is editable and does not represent its actual policy. No investment advice.</footer>
+  </main>
+  <script src="model.js"></script><script src="app.js"></script>
+</body>
+</html>
