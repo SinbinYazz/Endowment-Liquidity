@@ -12,10 +12,9 @@ Send:
 Use [RECORDING_SCRIPT.md](RECORDING_SCRIPT.md) for the full conversational script, exact inputs, and expected results for two representative scenarios.
 
 - **0:00–0:35:** State the customer, decision, and fictional data. Show the opening portfolio.
-- **0:35–1:25:** Explain the 25% public-asset shock, the $20M proposal, and why the immediate gate shows approval required.
-- **1:25–2:20:** Set the shock to 10%. Compare the $20M proposal with a $14M proposal: $14M starts below the threshold but crosses in month 2. Explain the $11.4M full-year envelope and its $5.4M no-distributions sensitivity.
-- **2:20–3:10:** Use the rounded-down capacity button, then read the committee brief. Point out unchanged existing calls and the new unfunded obligations left after year one.
-- **3:10–4:00:** Show the printable brief, the assumption ledger and source link, and briefly explain the separate calculation file and edge-case tests. Sale sensitivity is optional.
+- **0:35–1:50:** Set the shock to 10% and proposal to $14M. Show its month-1 threshold crossing and the $8.4M full-year envelope, then test the rounded-down $8M proposal.
+- **1:50–3:20:** Accelerate existing calls to 150% and new calls to 100%. Coverage falls to 2.84× against a 3.0× floor; reduce the annual spending budget from $20M to $15M to show the 3.01× result and the budget trade-off.
+- **3:20–4:00:** Show the printable committee brief and acknowledge the twelve-month horizon. Sale sensitivity is optional.
 
 ## Final check
 

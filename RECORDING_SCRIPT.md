@@ -1,68 +1,66 @@
 # Recording script — about four minutes
 
-Open https://sinbinyazz.github.io/Endowment-Liquidity/ and click **Reset**.
+Open https://sinbinyazz.github.io/Endowment-Liquidity/ and click **Reset**. Defaults: 25% public shock, 100% existing call pace, 50% distributions, $20M spending, $20M proposal, 20% new first-year call rate, 60% exposure gate, 3.0× liquidity coverage floor. Sale inputs are optional and unused in these two stories.
 
 ## Opening — 20 seconds
 
-“This is a fictional $400M university endowment considering a new private-fund commitment. The question is how much room we have under stressed assumptions—and what approving now leaves us committed to later.”
+“This is a fictional $400M university endowment. We’re deciding whether to add a private commitment while protecting both policy headroom and liquidity. Every input is illustrative, and the brief makes the assumptions visible.”
 
-## Scenario 1: existing exposure already requires an exception — 75 seconds
+## Scenario 1: a commitment that fits today can exceed the threshold later — 90 seconds
 
-Start at Reset. Change nothing:
+From Reset, change exactly:
 
-| Input | Value |
-|---|---:|
-| Public asset shock | −25% |
-| Existing call pace | 100% |
-| Private distributions | 50% |
-| Proposed commitment | $20M |
-| New commitment called in year 1 | 20% |
-| Approval gate | 60% |
-
-Show the decision snapshot, envelope, and approve-versus-defer comparison.
-
-Expected results:
-
-- Current exposure **62.7%**; with proposal **68.7%**; maximum **70.0%**.
-- **No new capacity** because existing exposure already exceeds the threshold.
-- Year-end liquid assets: **$157M** if approved versus **$161M** if deferred.
-- Existing calls remain **$45M** either way. Approval adds **$4M** of first-year calls and leaves **$16M** of the new commitment uncalled.
-
-“The first distinction is between policy pressure and running out of cash. We still have substantial modeled liquidity, but we’re already above the illustrative approval gate.
-
-“Deferring preserves $4M this year and avoids adding $20M of commitments. It doesn’t repair the existing exposure. So the committee discussion is whether to grant an exception or defer while addressing the existing position.”
-
-## Scenario 2: a proposal that fits today can exceed the threshold later — two minutes
-
-Continue from scenario 1. Change exactly:
-
-1. **Public asset shock: −25% → −10%.**
+1. **Public asset shock: 25% → 10%.**
 2. **Proposed commitment: $20M → $14M.**
-3. Leave all other inputs unchanged.
 
-Show the snapshot and envelope. Expected results:
+Keep spending at $20M and all other defaults. Expected results:
 
-- Current exposure **56.1%**; with proposal **59.9%** initially.
-- Maximum exposure **60.7%**, first crossing in **month 2**.
-- Starting capacity **$14.4M**; full-year capacity **$11.4M**; no-distributions capacity **$5.4M**.
+- Current exposure **56.1%**; with proposal **59.9%**.
+- Maximum modeled exposure **61.6%**, first crossing in **month 1**.
+- Further public decline to the starting gate: about **0.3%** from the already-shocked sleeve.
+- Starting exposure-only headroom **$14.4M**; full-year capacity **$8.4M**; no-distributions capacity **$2.4M**.
 
-“With a smaller drawdown, a $14M commitment appears to fit at the starting date. But looking through the year changes the discussion: exposure crosses the threshold in month two.
+“A $14M proposal appears to fit at the starting date. But spending and private cash flows change the position through the year: it crosses the exposure threshold in month one. The full-year envelope is $8.4M, and it falls to $2.4M if distributions stop.”
 
-“The model distinguishes $14.4M of immediate headroom from $11.4M across the full year. That gives the committee a concrete alternative to approving everything or deferring everything.”
+Click **Test a $8.0M proposal…**. Expected results:
 
-Click **Test a $11.0M proposal…**. Expected results:
+- Starting exposure **58.3%**; maximum **59.9%**, with no crossing in year one.
+- Net-needs coverage **4.19×**, above the **3.0×** floor.
+- Year-end liquid assets **$193.4M** versus **$195M** if deferred.
+- **$6.4M** of the new commitment remains uncalled after year one.
 
-- Starting exposure **59.1%**; maximum **59.9%**; **no crossing through month 12**.
-- First-year new calls **$2.2M**.
-- Year-end liquid assets **$197.8M**, versus **$200M** if deferred.
-- New commitment still unfunded after year one **$8.8M**.
+“The rounded-down $8M proposal fits the selected exposure and liquidity constraints. That gives the committee a concrete alternative to approving the full amount or deferring. It still creates obligations beyond this year.”
 
-Scroll to **Committee brief**, then click **Print brief** to show the one-page preview. Cancel afterward.
+## Scenario 2: call acceleration makes liquidity the binding constraint — 90 seconds
 
-“The rounded-down $11M proposal stays within the selected planning envelope. The brief makes the trade-off explicit: $2.2M more cash needed this year and $8.8M of new obligations still outstanding afterward.
+Continue with the $8M proposal and 10% shock. Change exactly:
 
-“But the envelope falls to $5.4M if distributions stop. The decision therefore depends on how much confidence the committee places in those assumptions.”
+1. **Existing call pace: 100% → 150%.**
+2. **New commitment called in year 1: 20% → 100%.**
 
-## Closing limitation — 20 seconds
+Expected results with spending still $20M:
 
-“One limitation is the twelve-month horizon. The brief shows the obligations remaining afterward, but it doesn’t model when those later calls arrive. I’d use this to frame a conditional authorization discussion, then validate the longer-term pacing picture before making an actual commitment.”
+- Existing calls **$67.5M** and new calls **$8M**.
+- Year-one net needs **$89.5M** against **$254M** starting liquid assets.
+- Approval coverage **2.84×**, below the **3.0×** floor; deferral coverage **3.12×**.
+- Exposure remains within its threshold, but full-year commitment capacity falls to about **$3.2M** because liquidity now binds.
+
+“The exposure ratio barely reacts to call timing because calls move cash into private NAV. But our liquidity cushion does react. We can still pay the modeled bills, yet approval falls below the committee’s selected coverage floor. One option is to reduce the proposal to roughly $3M or defer.”
+
+Now change **Annual spending budget: $20M → $15M**. Expected results:
+
+- Approval coverage rises to **3.01×**, just above the floor.
+- Full-year commitment capacity rises to about **$8.2M**.
+- Year-end liquid assets **$169.5M** versus **$177.5M** if deferred.
+
+“A proposed $5M spending reduction restores enough coverage for the $8M commitment, but it has an institutional cost. This isn’t an automatic spending cut: it makes the trade-off visible for the people who can authorize that budget change.”
+
+## Brief and limitation — 30–45 seconds
+
+Show **Committee brief**, then **Print brief**. Show the preview and cancel.
+
+“The brief captures the decision, cash requirements, and obligations that remain. One limitation is the twelve-month horizon: we show remaining unfunded, but don’t forecast the later call schedule. I’d validate that longer-term pacing picture before an actual authorization.”
+
+## Optional sale check, outside the main recording
+
+At Reset, the default sale sensitivity sells $35M NAV and transfers $15M unfunded at a 10% discount. Expected cash proceeds are $31.5M, year-one call relief $7.5M, and distributions relinquished $1.75M (displayed rounded to $1.8M). Transferred unfunded adds no cash. Cash-flow changes use labeled proportional assumptions.

@@ -38,7 +38,7 @@ test('exhausting all liquid assets exposes funding shortfall', () => {
   const r = calculate({ shock: 0.6, callMultiplier: 2,
     distributionMultiplier: 0, newCallRate: 1 }, 'approve');
   assert.equal(r.firstFundingShortfallMonth, 12);
-  close(r.totalFundingShortfall, 1);
+  close(r.totalFundingShortfall, 6);
   close(r.marketableSales, 104);
   assert.equal(r.ending, null);
   assert.equal(r.months[11].privateNav, null);
@@ -65,7 +65,12 @@ test('sale cost and gate effect are explicit', () => {
   close(r.proceeds, 31.5);
   close(r.loss, 3.5);
   close(r.initialTotal, 331.5);
-  close(r.initialGateRatio, 195 / 331.5);
+  close(r.initialGateRatio, 180 / 331.5);
+  close(r.transferredUnfunded, 15);
+  close(r.annualExistingCalls, 37.5);
+  close(r.callRelief, 7.5);
+  close(r.annualDistributions, 4.25);
+  close(r.lostDistributions, 1.75);
 });
 
 test('sale above private NAV is rejected', () => {
@@ -77,12 +82,12 @@ test('breakpoint handles an already triggered gate', () => {
 });
 
 test('full-year envelope captures spending and distribution effects', () => {
-  const e = decisionEnvelope({ shock: 0.1 });
+  const e = decisionEnvelope({ shock: 0.1, annualSpending: 15 });
   close(e.startingCapacity, 14.4);
   assert.ok(Math.abs(e.maxCommitment - 11.4) < 1e-6);
-  const noDistributions = decisionEnvelope({ shock: 0.1, distributionMultiplier: 0 });
+  const noDistributions = decisionEnvelope({ shock: 0.1, annualSpending: 15, distributionMultiplier: 0 });
   assert.ok(Math.abs(noDistributions.maxCommitment - 5.4) < 1e-6);
-  const p = exposurePath(calculate({ shock: 0.1, proposedCommitment: 14 }, 'approve'));
+  const p = exposurePath(calculate({ shock: 0.1, proposedCommitment: 14, annualSpending: 15 }, 'approve'));
   assert.equal(p.firstOverMonth, 2);
   close(p.peakRatio, 218 / 359);
 });
@@ -96,9 +101,81 @@ test('zero capacity does not imply existing portfolio fits', () => {
 test('envelope respects the cash-funding boundary', () => {
   const input = { shock: 0, cash: 0, marketable: 10, privateNav: 0,
     existingUnfunded: 0, annualExistingCalls: 0, annualSpending: 9,
-    annualDistributions: 0, newCallRate: 1, gate: 1, saleNav: 0 };
+    annualDistributions: 0, newCallRate: 1, gate: 1, saleNav: 0, saleUnfunded: 0, liquidityFloor: 0 };
   const e = decisionEnvelope(input);
   assert.equal(e.baselineFits, true);
   assert.ok(Math.abs(e.maxCommitment - 1) < 1e-6);
   assert.equal(calculate({ ...input, proposedCommitment: e.maxCommitment + 0.01 }, 'approve').ending, null);
+});
+
+test('additional downside uses the selected shocked sleeve', () => {
+  const r = calculate({ shock: 0.1, proposedCommitment: 11 }, 'approve');
+  close(r.breakpoint, (374 - 221 / 0.6) / 234);
+  assert.equal(r.thresholdState, 'below');
+  const afterFurtherLoss = calculate({ shock: 1 - 0.9 * (1 - r.breakpoint), proposedCommitment: 11 }, 'approve');
+  close(afterFurtherLoss.initialGateRatio, 0.6);
+  assert.equal(calculate({ shock: 0.2, proposedCommitment: 11 }, 'approve').thresholdState, 'above');
+  assert.equal(calculate({ shock: 0.1, proposedCommitment: 14.4 }, 'approve').thresholdState, 'at');
+});
+
+test('no remaining public assets gives no further-decline threshold when below gate', () => {
+  const r = calculate({ shock: 1, gate: 1, privateNav: 20, existingUnfunded: 0,
+    saleNav: 0, saleUnfunded: 0, proposedCommitment: 0, annualDistributions: 0 }, 'approve');
+  assert.equal(r.thresholdState, 'below');
+  assert.equal(r.breakpoint, null);
+});
+
+test('call levers change coverage and can breach a floor before cash exhaustion', () => {
+  const base = calculate({}, 'approve');
+  close(base.liquidityCoverage, 215 / 63);
+  assert.equal(base.coveragePass, true);
+  const accelerated = calculate({ callMultiplier: 1.5 }, 'approve');
+  close(accelerated.liquidityCoverage, 215 / 85.5);
+  assert.equal(accelerated.coveragePass, false);
+  assert.ok(accelerated.ending);
+  const called = calculate({ newCallRate: 1 }, 'approve');
+  close(called.liquidityCoverage, 215 / 79);
+  assert.equal(called.coveragePass, false);
+});
+
+test('liquidity floor binds capacity and spending reduction restores headroom', () => {
+  const input = { shock: 0, gate: 1, liquidityFloor: 4 };
+  const e = decisionEnvelope(input);
+  assert.ok(Math.abs(e.maxCommitment - 55) < 1e-6);
+  const reducedSpending = decisionEnvelope({ ...input, annualSpending: 15 });
+  assert.ok(Math.abs(reducedSpending.maxCommitment - 80) < 1e-6);
+  const failingBaseline = decisionEnvelope({ ...input, liquidityFloor: 5 });
+  assert.equal(failingBaseline.baselineFits, false);
+  assert.match(failingBaseline.reason, /coverage/);
+});
+
+test('zero and negative net needs do not produce infinite or negative coverage', () => {
+  const zero = calculate({ callMultiplier: 0, distributionMultiplier: 0, annualSpending: 0 }, 'defer');
+  assert.equal(zero.liquidityCoverage, null);
+  assert.equal(zero.coveragePass, true);
+  const inflow = calculate({ callMultiplier: 0, annualSpending: 0 }, 'defer');
+  assert.equal(inflow.liquidityCoverage, null);
+  assert.equal(inflow.noDistributionCoverage, null);
+});
+
+test('transferred unfunded adds no proceeds and does not affect unsold actions', () => {
+  const sold = calculate({ saleUnfunded: 15 }, 'sell');
+  const navOnly = calculate({ saleUnfunded: 0 }, 'sell');
+  close(sold.proceeds, navOnly.proceeds);
+  close(sold.initialTotal, navOnly.initialTotal);
+  close(calculate({ saleUnfunded: 15 }, 'approve').annualExistingCalls, 45);
+  assert.throws(() => calculate({ saleUnfunded: 91 }, 'sell'), RangeError);
+});
+
+test('selling all private NAV and unfunded removes associated cash flows', () => {
+  const r = calculate({ saleNav: 120, saleUnfunded: 90 }, 'sell');
+  close(r.annualExistingCalls, 0);
+  close(r.annualDistributions, 0);
+  close(r.ending.existingUnfunded, 0);
+  close(r.ending.total, r.initialTotal - r.annualSpending);
+});
+
+test('updated default spending produces the revised full-year envelope', () => {
+  assert.ok(Math.abs(decisionEnvelope({ shock: 0.1 }).maxCommitment - 8.4) < 1e-6);
+  assert.ok(Math.abs(decisionEnvelope({ shock: 0.1, distributionMultiplier: 0 }).maxCommitment - 2.4) < 1e-6);
 });
