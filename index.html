@@ -39,11 +39,17 @@
           <p id="snapshotNote" class="note"></p>
         </section>
 
-        <section class="card"><div class="sectionhead"><div><p class="eyebrow">Same stress, three choices</p><h2>Action comparison</h2></div></div><p class="assumptionline">The sale is a hypothetical sensitivity. It assumes same-month cash proceeds at the chosen discount, no attached unfunded commitments, and no lost forecast distributions. A favorable ratio does not establish an executable sale.</p><div id="actions" class="actions"></div></section>
+        <section class="card envelope"><div class="sectionhead"><div><p class="eyebrow">Conditional planning limits · month 0 through month 12</p><h2>Decision envelope</h2></div></div><div id="envelopeMetrics" class="metrics"></div><p id="envelopeNote" class="note"></p><button id="useCapacity" class="primary" type="button"></button></section>
+
+        <section class="card committee"><div class="sectionhead"><div><p class="eyebrow">Fictional scenario · for committee discussion</p><h2>Committee brief</h2></div><button id="printBrief" type="button">Print brief</button></div><div id="committeeBrief"></div></section>
+
+        <section class="card"><div class="sectionhead"><div><p class="eyebrow">Same stress · existing calls unchanged</p><h2>Approve versus defer</h2></div></div><div id="actions" class="actions coreActions"></div></section>
 
         <section class="card"><div class="sectionhead"><div><p id="pathContext" class="eyebrow">Twelve-month path · if proposed commitment is approved</p><h2>Where cash comes from</h2></div></div><p class="assumptionline">Assumes every shocked marketable asset can be sold when needed at displayed value; calls, distributions, and spending occur evenly each month. No notice period or sale cost is modeled.</p><div id="bars" class="bars" role="img" aria-label="Monthly cash and marketable assets"></div><div class="legend"><span><i class="cashkey"></i> Cash</span><span><i class="marketkey"></i> Marketable assets</span></div><p id="flowNote" class="small"></p></section>
 
-        <section class="card explanation"><div class="sectionhead"><div><p class="eyebrow">Calculation-backed explanation</p><h2>Committee talking points</h2></div></div><div id="narrative"></div><details><summary>Assumptions and calculation rules</summary><div id="ledger"></div></details></section>
+        <details class="card saleDetails"><summary>Optional: hypothetical secondary-sale sensitivity</summary><p class="assumptionline">Assumes same-month cash proceeds at the chosen discount, no attached unfunded commitments, and no lost forecast distributions. A favorable ratio does not establish an executable sale.</p><div id="saleAction"></div></details>
+
+        <section class="card explanation"><details><summary>Assumptions and calculation rules</summary><div id="ledger"></div></details></section>
       </div>
     </div>
     <footer>Illustrative scenario only. Policy example: <a href="https://give.fiu.edu/about/fiu-foundation/policies-procedures/foundation-ips-for-bod-approved-2.6.26_final.pdf" target="_blank" rel="noopener">FIU Foundation IPS, Appendix A</a>. This fictional endowment’s gate is editable and does not represent its actual policy. No investment advice.</footer>

@@ -16,6 +16,12 @@ Approving adds $20M to unfunded immediately. With a 20% first-year new-call assu
 
 The scenario is illustrative, not a forecast or investment recommendation. No real client or employer data is included.
 
+## Decision envelope and committee brief
+
+The envelope checks exposure at scenario start and every month-end and requires all scheduled cash needs to be funded. It shows the maximum modeled exposure, first threshold crossing, full-year new commitment capacity, and a no-distributions sensitivity. Capacity is a conditional planning limit, separate from the current-position approval rule. When the existing portfolio already fails the envelope, zero new capacity does not imply that deferral repairs it.
+
+At a 10% public shock with default cash-flow assumptions, immediate capacity is $14.4M but full-year capacity is $11.4M. With no distributions, full-year capacity is $5.4M. A button rounds capacity down to a whole-million proposal within the slider range. The committee brief compares approve versus defer, states remaining unfunded obligations, and prints on its own using **Print brief**. No later-year cash-flow schedule is modeled.
+
 ## GitHub Pages
 
 Live demo: https://sinbinyazz.github.io/Endowment-Liquidity/. GitHub Pages publishes the root of `main`; the site and its three static assets returned HTTP 200 after the successful deployment run.

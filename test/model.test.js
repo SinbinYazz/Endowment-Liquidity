@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const { calculate } = require('../model.js');
+const { calculate, decisionEnvelope, exposurePath } = require('../model.js');
 const close = (actual, expected) => assert.ok(Math.abs(actual - expected) < 1e-8, `${actual} != ${expected}`);
 
 test('proposed commitment changes immediate gate and only new calls', () => {
@@ -74,4 +74,31 @@ test('sale above private NAV is rejected', () => {
 
 test('breakpoint handles an already triggered gate', () => {
   close(calculate({ shock: 0, proposedCommitment: 40 }, 'approve').breakpoint, 0);
+});
+
+test('full-year envelope captures spending and distribution effects', () => {
+  const e = decisionEnvelope({ shock: 0.1 });
+  close(e.startingCapacity, 14.4);
+  assert.ok(Math.abs(e.maxCommitment - 11.4) < 1e-6);
+  const noDistributions = decisionEnvelope({ shock: 0.1, distributionMultiplier: 0 });
+  assert.ok(Math.abs(noDistributions.maxCommitment - 5.4) < 1e-6);
+  const p = exposurePath(calculate({ shock: 0.1, proposedCommitment: 14 }, 'approve'));
+  assert.equal(p.firstOverMonth, 2);
+  close(p.peakRatio, 218 / 359);
+});
+
+test('zero capacity does not imply existing portfolio fits', () => {
+  const e = decisionEnvelope({});
+  assert.equal(e.baselineFits, false);
+  close(e.maxCommitment, 0);
+});
+
+test('envelope respects the cash-funding boundary', () => {
+  const input = { shock: 0, cash: 0, marketable: 10, privateNav: 0,
+    existingUnfunded: 0, annualExistingCalls: 0, annualSpending: 9,
+    annualDistributions: 0, newCallRate: 1, gate: 1, saleNav: 0 };
+  const e = decisionEnvelope(input);
+  assert.equal(e.baselineFits, true);
+  assert.ok(Math.abs(e.maxCommitment - 1) < 1e-6);
+  assert.equal(calculate({ ...input, proposedCommitment: e.maxCommitment + 0.01 }, 'approve').ending, null);
 });

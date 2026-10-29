@@ -113,5 +113,39 @@
       gate: s.gate };
   }
 
-  return { BASE, calculate, validate };
+  function exposurePath(result) {
+    const points = [{ month: 0, ratio: result.initialGateRatio },
+      ...result.months.filter(m => m.gateRatio !== null).map(m => ({ month: m.month, ratio: m.gateRatio }))];
+    const peak = points.reduce((a, b) => b.ratio > a.ratio ? b : a);
+    const firstOver = points.find(p => p.ratio > result.gate + 1e-10);
+    return { peakRatio: peak.ratio, peakMonth: peak.month,
+      firstOverMonth: firstOver ? firstOver.month : null, complete: result.ending !== null };
+  }
+
+  // Largest new commitment satisfying both the exposure threshold at every
+  // modeled point (including month 0) and the scheduled cash needs. This is a
+  // conditional planning envelope, separate from the current-position rule.
+  function decisionEnvelope(input) {
+    const s = validate(input);
+    const baseline = calculate(s, 'defer');
+    const baselinePath = exposurePath(baseline);
+    const startingCapacity = Math.max(0, s.gate * baseline.initialTotal - baseline.currentNumerator);
+    const baselineFits = baselinePath.complete && baselinePath.firstOverMonth === null;
+    if (!baselineFits) return { startingCapacity, maxCommitment: 0, baselineFits: false,
+      reason: baseline.ending === null ? 'Existing cash needs cannot be fully funded.'
+        : 'Existing exposure exceeds the threshold within the horizon.' };
+    let low = 0;
+    let high = startingCapacity;
+    for (let i = 0; i < 45; i++) {
+      const candidate = (low + high) / 2;
+      const r = calculate({ ...s, proposedCommitment: candidate, commitment: true }, 'approve');
+      const p = exposurePath(r);
+      if (p.complete && p.firstOverMonth === null) low = candidate;
+      else high = candidate;
+    }
+    return { startingCapacity, maxCommitment: low, baselineFits: true,
+      reason: 'Conditional on all displayed assumptions and the 12-month horizon.' };
+  }
+
+  return { BASE, calculate, validate, exposurePath, decisionEnvelope };
 });
