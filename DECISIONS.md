@@ -17,6 +17,7 @@
 | Delivery | Dependency-free static files, suitable for local opening or GitHub Pages; test the calculation module with Node. | Connected to the user's existing repository. User enabled Pages; deployment succeeded. Browser check on the local files verified default ratios, a zero proposal, and the reachable $1M shortfall. Hosted files are checked against the local files after publishing. |
 | Test | `node --test test/model.test.js` passes 20 cases, including current-shock headroom, coverage-floor breaches before cash exhaustion, spending changes, sale flow relief, invalid transferred unfunded, and revised $8.4M / $2.4M default capacities at a 10% shock. | Live browser verified 2.4% further downside at 10% shock / $11M proposal, the 2.84× to 3.01× coverage change from a spending cut, transferred-unfunded relief, and a single-page print preview. Hosted sources match local files after normalizing line endings. |
 | Remote integration | Preserved the user's newer header edit to “Interactive prototype” by rebasing onto it before pushing. | No force push; assignment and handoff files remain local. |
+| Recording | Updated the main walkthrough to cover relative downside, the liquidity floor, spending reductions, and transferred unfunded within approximately 4½ minutes. | Model-checked sale proceeds, call relief, distribution loss, exposure, and coverage; shortened sale fallback keeps the recording under five minutes. |
 
 ## Work remaining before submission
 
