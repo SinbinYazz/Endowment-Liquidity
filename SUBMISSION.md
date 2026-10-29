@@ -9,12 +9,12 @@ Send:
 
 ## Recommended product demonstration (about four and a half minutes)
 
-Use [PRODUCT_DEMO_SCRIPT.md](PRODUCT_DEMO_SCRIPT.md) for the reviewer-facing video. It introduces the customer and decision, keeps the base $20M proposal, and follows the panels from top to bottom. [RECORDING_SCRIPT.md](RECORDING_SCRIPT.md) remains the detailed two-scenario rehearsal and calculation reference.
+Use [PRODUCT_DEMO_SCRIPT.md](PRODUCT_DEMO_SCRIPT.md) for the reviewer-facing video. After Reset, prepare a 5% public shock and $20M proposal. Follow the panels top to bottom, then use the envelope shortcut to test a smaller $16M authorization. [RECORDING_SCRIPT.md](RECORDING_SCRIPT.md) remains the detailed two-scenario rehearsal and calculation reference; its scenarios are unchanged.
 
-- **0:00–0:50:** Customer, problem, moment of use, and fictional base case.
+- **0:00–0:50:** Customer, problem, moment of use, and fictional 5% shock / $20M proposal.
 - **0:50–1:20:** Decision Snapshot: existing exposure versus the proposed commitment.
-- **1:20–1:55:** Liquidity Coverage: briefly raise existing call pace to 150% to show 2.51× coverage, then restore 100% and 3.41×.
-- **1:55–2:25:** Decision Envelope: full-year constraints and why zero capacity does not resolve the existing exposure issue.
+- **1:20–1:55:** Liquidity Coverage: raise existing call pace to 160% to show 2.97× approval coverage versus 3.10× deferral; restore 100% and 4.24× approval coverage.
+- **1:55–2:25:** Decision Envelope: the $20M proposal crosses in month 5; show $16.2M full-year capacity and test the rounded-down $16M proposal, which peaks at 59.9%.
 - **2:25–3:00:** Committee Brief and one-page print preview; cancel afterward.
 - **3:00–3:45:** Approve versus Defer, then the monthly cash path.
 - **3:45–4:30:** Optional sale sensitivity, assumption ledger, and the twelve-month limitation.

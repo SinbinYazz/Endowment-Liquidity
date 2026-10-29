@@ -4,9 +4,9 @@ This is the reviewer-facing product demo. [RECORDING_SCRIPT.md](RECORDING_SCRIPT
 
 ## Before recording
 
-- Open https://sinbinyazz.github.io/Endowment-Liquidity/ and click **Reset**. Begin at the top of the page.
-- Keep the **$20M proposed commitment** throughout. The only temporary input change is **Existing call pace: 100% → 150% → 100%**, during Liquidity Coverage. Restore 100% before moving on.
-- Defaults: 25% public shock, $20M spending, 50% distributions, 20% first-year new calls, 60% exposure gate, 3.0× coverage floor. All are fictional assumptions.
+- Open https://sinbinyazz.github.io/Endowment-Liquidity/ and click **Reset**, then set **Public asset shock to 5%** before recording. Begin at the top of the page. The app's Reset default remains 25%; this recording deliberately uses a milder case with a less obvious decision.
+- Begin with the **$20M proposed commitment**. During Liquidity Coverage, temporarily change **Existing call pace: 100% → 160% → 100%**. In Decision Envelope, click the shortcut to test a **$16M proposal**, then keep $16M for the rest of the video.
+- Keep the other defaults: $20M spending, 50% distributions, 20% first-year new calls, 60% exposure gate, 3.0× coverage floor. All are fictional assumptions. Do not click Reset again during the recording.
 - Speak the quoted text. Screen directions and expected readouts are rehearsal notes. Avoid reading every number on a panel.
 
 ## 0:00–0:30 — Customer, problem, and moment
@@ -19,45 +19,47 @@ This is the reviewer-facing product demo. [RECORDING_SCRIPT.md](RECORDING_SCRIPT
 
 ## 0:30–0:50 — Establish the base case
 
-**Screen:** Starting portfolio and inputs. Keep Reset values.
+**Screen:** Starting portfolio and inputs. Confirm the prepared 5% shock and $20M proposal.
 
-“We’re reviewing a $20M commitment for a fictional $400M endowment, after a 25% decline in its public assets. The inputs describe the committee’s assumptions about calls, distributions, spending, and policy limits. Staff can change those assumptions as the discussion develops.”
+“We’re reviewing a $20M commitment for a fictional $400M endowment, after a 5% decline in its public assets. The inputs describe assumptions about calls, distributions, spending, and policy limits. Staff can change those assumptions as the committee discussion develops.”
 
 ## 0:50–1:20 — Decision Snapshot: what needs attention now?
 
 **Screen:** Scroll to Decision Snapshot.
 
-“The snapshot separates our existing position from the proposal. Private asset value plus unfunded commitments—capital promised but not yet called—is already above the illustrative exposure gate. Adding this commitment increases it further.
+“The snapshot separates our existing position from the proposal. Private asset value plus unfunded commitments—capital promised but not yet called—stays below the illustrative exposure gate, even with the full $20M proposal.
 
-“That tells the CIO to bring an exception discussion to the committee. The downside field makes the starting point clear: we’re already above the gate, so there is no further public-market loss capacity under this test.”
+“So it appears to fit today. But the remaining headroom is small: another 1.5% decline in the already-shocked public assets reaches the gate. That prompts a look at the full-year picture before authorization.”
 
-**Expected:** Current exposure **62.7%**; with proposal **68.7%**; further decline **Already above gate**; cash draw **Month 4**. Leave cash timing for the later chart.
+**Expected:** Current exposure **54.3%**; with proposal **59.4%**; further decline **1.5%**; cash draw **Month 4**. Both starting exposure ratios are below 60%. Leave cash timing for the later chart.
 
 ## 1:20–1:55 — Liquidity Coverage: how much funding cushion remains?
 
-**Screen:** Scroll to Liquidity Coverage. Set **Existing call pace to 150%**, pause, then return it to **100%**.
+**Screen:** Scroll to Liquidity Coverage. Set **Existing call pace to 160%**, pause, then return it to **100%**.
 
 “Liquidity coverage asks how comfortably liquid assets cover the next year’s calls and spending, after assumed distributions. The base case meets our selected three-times floor.
 
-“If the committee asks about faster calls, I can test that here. Coverage falls below the floor even though the portfolio can still pay the modeled bills. Returning to our base assumptions restores the cushion. The no-distributions view shows dependence on incoming cash.”
+“If the committee asks about faster calls, I can test that here. Approval falls below the floor while deferral still meets it, making the incremental funding pressure visible. Returning to our base assumptions restores the cushion. The no-distributions view shows dependence on incoming cash.”
 
-**Expected:** Base approval **3.41×**, deferral **3.64×**, approval without distributions **3.12×**. Faster calls reduce approval coverage to **2.51×**, below **3.0×**. Restore **100%** and verify **3.41×** before continuing.
+**Expected:** Base approval **4.24×**, deferral **4.53×**, approval without distributions **3.87×**. At 160% existing calls, approval coverage is **2.97×**, below **3.0×**, while deferral is **3.10×**. Restore **100%** and verify **4.24×** before continuing.
 
 ## 1:55–2:25 — Decision Envelope: connect today's position to the full year
 
-**Screen:** Scroll to Decision Envelope.
+**Screen:** Scroll to Decision Envelope. Show the $20M result, then click **Test a $16.0M proposal…**. Leave the proposal at $16M afterward.
 
-“The envelope combines exposure and liquidity constraints across the modeled year. It shows the highest exposure, when a threshold is crossed, and how much new commitment the assumptions can support.
+“The envelope checks the full modeled year. Our $20M proposal crosses the exposure threshold in month five, despite fitting at the start. The selected assumptions support $16.2M, falling to $10.2M if distributions stop.
 
-“Here it shows no new capacity because existing exposure already exceeds the threshold. Deferral avoids adding obligations, but doesn’t repair the existing position. That helps define what the committee needs to authorize or revisit.”
+“I can test a rounded-down $16M proposal here. It stays within the modeled constraints. The CIO now has a smaller authorization to discuss alongside deferral, with the sensitivity to distributions clearly visible.”
 
-**Expected:** Peak exposure **71.1%** in month 12; crossing **At scenario start**; **No capacity** in both cases. Zero commitment capacity does not mean zero cash.
+**Expected before shortcut:** Peak exposure **61.0%** in month 12; first crossing **Month 5**; full-year capacity **$16.2M**, no-distributions capacity **$10.2M**. These are conditional planning limits, not an investment recommendation.
+
+**Expected after shortcut:** Proposed commitment **$16M**; starting exposure **58.4%**; peak **59.9%**; no crossing through month 12; coverage **4.29×**. All following panels now refer to this smaller proposal.
 
 ## 2:25–3:00 — Committee Brief: turn analysis into a discussion
 
 **Screen:** Scroll to Committee Brief. Click **Print brief**, show the one-page preview briefly, then **Cancel**.
 
-“The brief turns the scenario into a committee discussion: the decision under consideration, its cash consequences, and the obligations that remain afterward.
+“The brief captures that smaller proposal, its cash consequences, and the obligations that remain afterward.
 
 “It carries the assumptions alongside the output, including spending and the liquidity floor. Staff can validate that record and bring the printable page to the meeting. It supports the committee’s judgment rather than granting approval automatically.”
 
@@ -67,11 +69,11 @@ This is the reviewer-facing product demo. [RECORDING_SCRIPT.md](RECORDING_SCRIPT
 
 **Screen:** Scroll to Approve versus Defer.
 
-“The comparison isolates what this proposal changes. Existing calls continue either way. Approval adds $4M of calls this year, leaving $152M of liquid assets versus $156M if deferred.
+“The comparison isolates what the revised $16M proposal changes. Existing calls continue either way. Approval adds $3.2M of calls this year, leaving $204.8M of liquid assets versus $208M if deferred.
 
-“It also leaves $16M of this new commitment uncalled after year one, so the committee can see the continuing obligation alongside the immediate cash impact.”
+“It also leaves $12.8M of this new commitment uncalled after year one, so the committee can see the continuing obligation alongside the immediate cash impact.”
 
-**Expected:** Existing calls **$45M** in both options; total year-end unfunded **$61M** versus **$45M**.
+**Expected:** Existing calls **$45M** in both options; total year-end unfunded **$57.8M** versus **$45M**. The proposed commitment remains $16M; do not return it to $20M here.
 
 ## 3:25–3:45 — Where Cash Comes From: explain the path behind the totals
 
@@ -79,7 +81,7 @@ This is the reviewer-facing product demo. [RECORDING_SCRIPT.md](RECORDING_SCRIPT
 
 “The cash path explains how we reach those totals. The reserve starts drawing on marketable assets in month four. That is a planned funding source in this scenario, while the note makes the assumed asset availability and even monthly cash flows explicit.”
 
-**Expected:** **$43M** of marketable assets drawn by month 12. The chart is for approval of the $20M proposal.
+**Expected:** **$42.2M** of marketable assets drawn by month 12. The chart is for approval of the revised $16M proposal. The cash reserve is being replenished from marketable assets; total liquid assets are not exhausted. The model has already applied the market shock and assumes these sales at that shocked value.
 
 ## 3:45–4:10 — Sale Sensitivity: another lever and its cost
 
@@ -101,4 +103,4 @@ This is the reviewer-facing product demo. [RECORDING_SCRIPT.md](RECORDING_SCRIPT
 
 ## Timing guardrail
 
-The narration is approximately **560 words**: about four minutes at 140 words per minute, plus scrolling and the preview. Target **4:15–4:45** in rehearsal; stop by **5:00**. If needed, shorten the sale segment to one sentence about cash raised, obligations transferred, and the discount cost. Keep the customer introduction, core decision panels, and limitation. Use the original script for slider-by-slider rehearsal.
+The narration is approximately **550 words**: about four minutes at 140 words per minute, plus scrolling and the preview. Target **4:15–4:45** in rehearsal; stop by **5:00**. If needed, shorten the sale segment to one sentence about cash raised, obligations transferred, and the discount cost. Keep the customer introduction, core decision panels, and limitation. Use the original script for slider-by-slider rehearsal.
