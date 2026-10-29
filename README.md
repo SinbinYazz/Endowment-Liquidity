@@ -6,7 +6,7 @@ Interactive interview prototype using **fictional data**. Open `index.html` in a
 
 A fictional $400M endowment considers a $20M private commitment after a 25% decline in marketable public assets. Starting balances are $20M cash, $260M marketable assets, $120M private NAV, and $90M existing unfunded commitments. An editable 60% **new-commitment approval gate** is inspired by FIU Foundation's published policy; this is not the fictional endowment's real policy.
 
-Approving adds $20M to unfunded immediately. With a 20% first-year new-call assumption, $4M is called over 12 months. Deferring the proposal leaves the $45M of existing calls intact. Calls transfer cash to private NAV and reduce unfunded; they do not by themselves reduce NAV plus unfunded exposure.
+Approving adds $20M to unfunded immediately. With a 20% first-year new-call assumption, $4M is scheduled over 12 months. Deferring the proposal leaves the $45M of existing calls intact. Calls transfer cash to private NAV and reduce unfunded; they do not by themselves reduce NAV plus unfunded exposure. The app shows current exposure before the proposal and pro forma exposure after it. If liquid assets cannot cover scheduled needs, the portfolio projection stops at the first unmet month.
 
 ## Review and tests
 

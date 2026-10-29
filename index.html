@@ -13,7 +13,7 @@
   </header>
   <main>
     <section class="intro">
-      <div><p class="eyebrow">The committee question</p><h2>Can we approve a new $20M private commitment after a market drawdown?</h2><p>Explore a 12-month stress case for a fictional $400M university endowment. All starting balances and cash-flow assumptions are illustrative.</p></div>
+      <div><p class="eyebrow">The committee question</p><h2 id="committeeQuestion">Can we approve a new $20M private commitment after a market drawdown?</h2><p>Explore a 12-month stress case for a fictional $400M university endowment. All starting balances and cash-flow assumptions are illustrative.</p></div>
       <div class="starting"><h3>Starting portfolio</h3><div><span>Cash</span><b>$20M</b></div><div><span>Marketable assets</span><b>$260M</b></div><div><span>Private NAV</span><b>$120M</b></div><div><span>Existing unfunded</span><b>$90M</b></div></div>
     </section>
 
@@ -34,14 +34,14 @@
 
       <div class="results">
         <section class="card overview">
-          <div class="sectionhead"><div><p class="eyebrow">Proposed commitment approved · before first-year flows</p><h2>Decision snapshot</h2></div><span id="status" class="status"></span></div>
-          <div class="metrics"><div><span>Exposure / portfolio NAV</span><strong id="ratio"></strong><small id="ratioDetail"></small></div><div><span>Gate first trips at</span><strong id="breakpoint"></strong><small>Public asset decline, all else fixed</small></div><div><span>Cash reserve draw</span><strong id="cashMonth"></strong><small id="cashDetail"></small></div></div>
+          <div class="sectionhead"><div><p class="eyebrow">Current versus proposed · before first-year flows</p><h2>Decision snapshot</h2></div><span id="status" class="status"></span></div>
+          <div class="metrics"><div><span>Current exposure</span><strong id="ratio"></strong><small id="ratioDetail"></small></div><div><span>With proposed commitment</span><strong id="postRatio"></strong><small id="postRatioDetail"></small></div><div><span>Pro forma gate trips at</span><strong id="breakpoint"></strong><small>Public asset decline, all else fixed</small></div><div><span>Cash reserve draw</span><strong id="cashMonth"></strong><small id="cashDetail"></small></div></div>
           <p id="snapshotNote" class="note"></p>
         </section>
 
-        <section class="card"><div class="sectionhead"><div><p class="eyebrow">Same stress, three choices</p><h2>Action comparison</h2></div></div><div id="actions" class="actions"></div></section>
+        <section class="card"><div class="sectionhead"><div><p class="eyebrow">Same stress, three choices</p><h2>Action comparison</h2></div></div><p class="assumptionline">The sale is a hypothetical sensitivity. It assumes same-month cash proceeds at the chosen discount, no attached unfunded commitments, and no lost forecast distributions. A favorable ratio does not establish an executable sale.</p><div id="actions" class="actions"></div></section>
 
-        <section class="card"><div class="sectionhead"><div><p class="eyebrow">Twelve-month path · proposed commitment approved</p><h2>Where cash comes from</h2></div></div><div id="bars" class="bars" role="img" aria-label="Monthly cash and marketable assets"></div><div class="legend"><span><i class="cashkey"></i> Cash</span><span><i class="marketkey"></i> Marketable assets</span></div><p id="flowNote" class="small"></p></section>
+        <section class="card"><div class="sectionhead"><div><p class="eyebrow">Twelve-month path · proposed commitment approved</p><h2>Where cash comes from</h2></div></div><p class="assumptionline">Assumes every shocked marketable asset can be sold when needed at displayed value; calls, distributions, and spending occur evenly each month. No notice period or sale cost is modeled.</p><div id="bars" class="bars" role="img" aria-label="Monthly cash and marketable assets"></div><div class="legend"><span><i class="cashkey"></i> Cash</span><span><i class="marketkey"></i> Marketable assets</span></div><p id="flowNote" class="small"></p></section>
 
         <section class="card explanation"><div class="sectionhead"><div><p class="eyebrow">Calculation-backed explanation</p><h2>Committee talking points</h2></div></div><div id="narrative"></div><details><summary>Assumptions and calculation rules</summary><div id="ledger"></div></details></section>
       </div>

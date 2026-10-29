@@ -7,8 +7,11 @@ test('proposed commitment changes immediate gate and only new calls', () => {
   const approved = calculate({}, 'approve');
   const deferred = calculate({}, 'defer');
   close(approved.initialTotal, 335);
+  close(approved.currentGateRatio, 210 / 335);
   close(approved.initialGateRatio, 230 / 335);
   close(deferred.initialGateRatio, 210 / 335);
+  assert.equal(approved.approvalRequired, true);
+  assert.equal(deferred.approvalRequired, false);
   close(approved.annualExistingCalls, 45);
   close(deferred.annualExistingCalls, 45);
   close(approved.annualNewCalls, 4);
@@ -32,10 +35,29 @@ test('zero net outflow never requires marketable sales', () => {
 });
 
 test('exhausting all liquid assets exposes funding shortfall', () => {
-  const r = calculate({ shock: 1, callMultiplier: 2, distributionMultiplier: 0,
-    annualSpending: 200 }, 'approve');
-  assert.ok(r.firstFundingShortfallMonth !== null);
-  assert.ok(r.totalFundingShortfall > 0);
+  const r = calculate({ shock: 0.6, callMultiplier: 2,
+    distributionMultiplier: 0, newCallRate: 1 }, 'approve');
+  assert.equal(r.firstFundingShortfallMonth, 12);
+  close(r.totalFundingShortfall, 1);
+  close(r.marketableSales, 104);
+  assert.equal(r.ending, null);
+  assert.equal(r.months[11].privateNav, null);
+  assert.equal(r.months[11].existingUnfunded, null);
+  assert.equal(r.months[11].total, null);
+});
+
+test('zero proposal requests no approval and schedules no new calls', () => {
+  const r = calculate({ proposedCommitment: 0 }, 'approve');
+  assert.equal(r.committed, false);
+  assert.equal(r.approvalRequired, false);
+  close(r.currentGateRatio, r.initialGateRatio);
+  close(r.annualNewCalls, 0);
+});
+
+test('crossing pro forma gate is distinct from current-position approval rule', () => {
+  const r = calculate({ shock: 0.1 }, 'approve');
+  assert.equal(r.approvalRequired, false);
+  assert.equal(r.proFormaExceedsGate, true);
 });
 
 test('sale cost and gate effect are explicit', () => {

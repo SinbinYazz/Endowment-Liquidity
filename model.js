@@ -41,7 +41,7 @@
     const s = validate(input);
     const choice = action || 'approve';
     if (!['approve', 'defer', 'sell'].includes(choice)) throw new RangeError('Unknown action');
-    const commit = choice !== 'defer' && s.commitment;
+    const commit = choice !== 'defer' && s.commitment && s.proposedCommitment > 0;
     const sale = choice === 'sell' ? s.saleNav : 0;
     const proceeds = sale * (1 - s.saleDiscount);
     const loss = sale - proceeds;
@@ -51,8 +51,12 @@
     let existingUnfunded = s.existingUnfunded;
     let newUnfunded = commit ? s.proposedCommitment : 0;
     const initialTotal = cash + marketable + privateNav;
-    const initialNumerator = privateNav + existingUnfunded + newUnfunded;
+    const currentNumerator = privateNav + existingUnfunded;
+    const currentGateRatio = currentNumerator / initialTotal;
+    const initialNumerator = currentNumerator + newUnfunded;
     const initialGateRatio = initialNumerator / initialTotal;
+    const approvalRequired = commit && s.proposedCommitment > 0 && currentGateRatio > s.gate;
+    const proFormaExceedsGate = commit && s.proposedCommitment > 0 && initialGateRatio > s.gate;
     const breakpoint = breakPoint(s, initialNumerator,
       s.cash + s.marketable + s.privateNav - loss);
     const annualExistingCalls = Math.min(s.existingUnfunded, s.annualExistingCalls * s.callMultiplier);
@@ -68,6 +72,21 @@
       const existingCall = Math.min(existingUnfunded, annualExistingCalls / 12);
       const newCall = Math.min(newUnfunded, annualNewCalls / 12);
       const distribution = Math.min(privateNav + existingCall + newCall, annualDistributions / 12);
+      const netNeed = existingCall + newCall + monthlySpend - distribution;
+      const available = cash + marketable;
+      if (netNeed > available + 1e-8) {
+        if (firstCashDrawMonth === null) firstCashDrawMonth = month;
+        firstFundingShortfallMonth = month;
+        totalFundingShortfall = netNeed - available;
+        marketableSales += marketable;
+        // The scheduled obligations cannot all be paid. No portfolio state is
+        // reported for this month because allocating the unpaid amount between
+        // calls and spending would require an additional decision assumption.
+        months.push({ month, cash: 0, marketable: 0, privateNav: null,
+          existingUnfunded: null, newUnfunded: null, total: null,
+          gateRatio: null, shortfall: totalFundingShortfall });
+        break;
+      }
       existingUnfunded -= existingCall;
       newUnfunded -= newCall;
       privateNav += existingCall + newCall - distribution;
@@ -79,21 +98,19 @@
         marketableSales += saleFromMarketable;
         cash += saleFromMarketable;
       }
-      if (cash < 0) {
-        if (firstFundingShortfallMonth === null) firstFundingShortfallMonth = month;
-        totalFundingShortfall += -cash;
-        cash = 0;
-      }
+      if (Math.abs(cash) < 1e-8) cash = 0;
       const total = cash + marketable + privateNav;
       months.push({ month, cash, marketable, privateNav, existingUnfunded,
         newUnfunded, total, gateRatio: (privateNav + existingUnfunded + newUnfunded) / total });
     }
     return { action: choice, committed: commit, sale, proceeds, loss, initialTotal,
-      initialNumerator, initialGateRatio, breakpoint, annualExistingCalls,
+      currentNumerator, currentGateRatio, initialNumerator, initialGateRatio,
+      approvalRequired, proFormaExceedsGate, breakpoint, annualExistingCalls,
       annualNewCalls, annualDistributions, annualSpending: s.annualSpending,
       monthlyNetNeed: (annualExistingCalls + annualNewCalls + s.annualSpending - annualDistributions) / 12,
       firstCashDrawMonth, firstFundingShortfallMonth, totalFundingShortfall,
-      marketableSales, months, ending: months[11], gate: s.gate };
+      marketableSales, months, ending: firstFundingShortfallMonth === null ? months[11] : null,
+      gate: s.gate };
   }
 
   return { BASE, calculate, validate };
