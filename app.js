@@ -13,7 +13,7 @@
   }
   function gateStatus(r) {
     if (!r.committed) return { label: 'No new approval requested', tone: 'neutral' };
-    if (r.approvalRequired) return { label: 'Current exposure requires approval', tone: 'warn' };
+    if (r.approvalRequired) return { label: 'New commitment requires approval', tone: 'warn' };
     if (r.proFormaExceedsGate) return { label: 'Proposal crosses gate; review', tone: 'warn' };
     return { label: 'Current and pro forma within gate', tone: 'ok' };
   }
@@ -41,6 +41,9 @@
     $('committeeQuestion').textContent = s.proposedCommitment > 0
       ? `Can we approve a new ${money(s.proposedCommitment)} private commitment after a market drawdown?`
       : 'How does the existing portfolio hold up after a market drawdown?';
+    $('pathContext').textContent = approved.committed
+      ? 'Twelve-month path · if proposed commitment is approved'
+      : 'Twelve-month path · no new commitment';
     $('shockValue').textContent = '−' + $('shock').value + '%';
     $('callsValue').textContent = $('calls').value + '% · ' + money(approved.annualExistingCalls);
     $('distributionsValue').textContent = $('distributions').value + '% · ' + money(approved.annualDistributions);
@@ -69,9 +72,9 @@
     $('snapshotNote').textContent = s.proposedCommitment > 0
       ? `Current exposure is checked before the new commitment, following the FIU-style approval rule. Approval would add ${money(s.proposedCommitment)} to unfunded now; ${money(approved.annualNewCalls)} of new calls is scheduled in year 1. Deferral leaves ${money(deferred.annualExistingCalls)} of existing calls unchanged.`
       : `No new commitment is proposed, so no new approval is requested. Existing calls remain ${money(deferred.annualExistingCalls)} in year 1.`;
-    $('actions').innerHTML = actionCard('Approve', 'Add new unfunded now; fund its assumed first-year calls.', approved) +
+    $('actions').innerHTML = actionCard(approved.committed ? 'Approve' : 'No new commitment', 'Add new unfunded only if a positive proposal is approved.', approved) +
       actionCard('Defer', 'No new unfunded or new calls; existing calls continue.', deferred) +
-      actionCard('Sale sensitivity', `Hypothetical sale of ${money(s.saleNav)} private NAV at ${pct(s.saleDiscount)} discount, then approval.`, sold, true);
+      actionCard('Sale sensitivity', `Hypothetical sale of ${money(s.saleNav)} private NAV at ${pct(s.saleDiscount)} discount${approved.committed ? ', then new commitment' : '; no new commitment'}.`, sold, true);
     const max = Math.max(1, ...approved.months.map(m => m.cash + m.marketable));
     $('bars').innerHTML = approved.months.map(m => `<div class="barcol" title="Month ${m.month}: cash ${money(m.cash)}, marketable ${money(m.marketable)}"><div class="barstack" style="height:${Math.max(2,(m.cash+m.marketable)/max*140)}px"><div class="marketbar" style="flex:${m.marketable}"></div><div class="cashbar" style="flex:${m.cash}"></div></div><label>${m.month}</label></div>`).join('');
     $('flowNote').textContent = `Scheduled: existing calls ${money(approved.annualExistingCalls)} + new calls ${money(approved.annualNewCalls)} + spending ${money(approved.annualSpending)} − distributions ${money(approved.annualDistributions)}. ` +
