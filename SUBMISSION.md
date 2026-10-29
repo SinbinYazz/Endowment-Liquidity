@@ -3,7 +3,7 @@
 Send:
 
 1. **One-page thesis:** [THESIS.md](THESIS.md).
-2. **Working demo and code:** `index.html` locally, or the verified GitHub Pages link; repository: https://github.com/SinbinYazz/Endowment-Liquidity.
+2. **Working demo and code:** https://sinbinyazz.github.io/Endowment-Liquidity/; repository: https://github.com/SinbinYazz/Endowment-Liquidity. `index.html` also opens locally.
 3. **3–5 minute screen recording:** record the app running using the outline below; include the video file or a shareable link.
 4. **AI session log or transcript:** export this actual Codex conversation or attach screenshots of it. [DECISIONS.md](DECISIONS.md) is supporting documentation, not the transcript.
 
@@ -17,7 +17,7 @@ Send:
 
 ## Final check
 
-- Confirm the Pages URL loads and controls work in a fresh browser session.
+- Open the Pages URL in a browser and confirm the controls work. The URL and its static assets returned HTTP 200; an interactive browser check is still advisable before sending.
 - Confirm the video is 3–5 minutes and audio is understandable.
 - Attach the actual session export or screenshots; do not represent this summary as a full transcript.
 - Remove any draft or sensitive content before sharing the public repository.

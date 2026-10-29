@@ -18,4 +18,4 @@ The scenario is illustrative, not a forecast or investment recommendation. No re
 
 ## GitHub Pages
 
-Publish the root of `main` as the Pages source in **Settings → Pages → Build and deployment → Deploy from a branch**. GitHub Pages looks for the root `index.html`. The expected project URL is `https://sinbinyazz.github.io/Endowment-Liquidity/`; verify it after publishing.
+Live demo: https://sinbinyazz.github.io/Endowment-Liquidity/. GitHub Pages publishes the root of `main`; the site and its three static assets returned HTTP 200 after the successful deployment run.
