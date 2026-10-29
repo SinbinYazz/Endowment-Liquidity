@@ -9,6 +9,8 @@ Send:
 
 ## Suggested recording outline (about four minutes)
 
+Use [RECORDING_SCRIPT.md](RECORDING_SCRIPT.md) for the full conversational script, exact inputs, and expected results for two representative scenarios.
+
 - **0:00–0:35:** State the customer, decision, and fictional data. Show the opening portfolio.
 - **0:35–1:25:** Explain the 25% public-asset shock, the $20M proposal, and why the immediate gate shows approval required.
 - **1:25–2:20:** Set the shock to 10%. Compare the $20M proposal with a $14M proposal: $14M starts below the threshold but crosses in month 2. Explain the $11.4M full-year envelope and its $5.4M no-distributions sensitivity.
