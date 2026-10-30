@@ -4,7 +4,7 @@ This is the reviewer-facing product demo. [RECORDING_SCRIPT.md](RECORDING_SCRIPT
 
 ## Before recording
 
-- Open https://sinbinyazz.github.io/Endowment-Liquidity/ and click **Reset**, then set **Public asset shock to 5%** before recording. Begin at the top of the page. The app's Reset default remains 25%; this recording deliberately uses a milder case with a less obvious decision.
+- Open https://sinbinyazz.github.io/Endowment-Liquidity/ and click **Reset**. Confirm **Public asset shock is 5%**, the current UI default, and begin at the top of the page. This milder case creates a less obvious decision than the 25% stress rehearsal.
 - Begin with the **$20M proposed commitment**. During Liquidity Coverage, temporarily change **Existing call pace: 100% → 160% → 100%**. In Decision Envelope, click the shortcut to test a **$16M proposal**, then keep $16M for the rest of the video.
 - Keep the other defaults: $20M spending, 50% distributions, 20% first-year new calls, 60% exposure gate, 3.0× coverage floor. All are fictional assumptions. Do not click Reset again during the recording.
 - Speak the quoted text. Screen directions and expected readouts are rehearsal notes. Avoid reading every number on a panel.

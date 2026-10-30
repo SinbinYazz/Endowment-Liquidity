@@ -1,6 +1,6 @@
 # Recording script — about four and a half minutes
 
-Open https://sinbinyazz.github.io/Endowment-Liquidity/ and click **Reset**. Defaults: 25% public shock, 100% existing call pace, 50% distributions, $20M spending, $20M proposal, 20% new first-year call rate, 60% exposure gate, 3.0× liquidity coverage floor. Sale defaults: $35M NAV, $15M unfunded transferred, 10% discount.
+Open https://sinbinyazz.github.io/Endowment-Liquidity/ and click **Reset**, then set **Public asset shock to 25%** for this stress rehearsal. Reset now restores 5%; the other starting inputs remain 100% existing call pace, 50% distributions, $20M spending, $20M proposal, 20% new first-year call rate, 60% exposure gate, and a 3.0× liquidity coverage floor. Sale inputs: $35M NAV, $15M unfunded transferred, 10% discount.
 
 Keep the floor at **3.0×** for the walkthrough. It is editable, but choose it before comparing decisions. Scroll within the input panel to reach its lower controls. The two committee scenarios lead into a short sale sensitivity; all spoken text is in quotation marks.
 
@@ -67,7 +67,7 @@ Show **Committee brief**, then **Print brief**. Show the preview and cancel.
 
 ## Sale sensitivity: transferring obligations as well as NAV — 45 seconds
 
-Click **Reset**, which restores the $20M budget and original scenario. Expand **Optional: hypothetical secondary-sale sensitivity**.
+Click **Reset**, then set **Public asset shock to 25%** again. This restores the $20M budget and this rehearsal's stress scenario. Expand **Optional: hypothetical secondary-sale sensitivity**.
 
 1. Keep **sale NAV $35M** and **discount 10%**.
 2. Set **Sold position’s unfunded transferred: $15M → $0M**.

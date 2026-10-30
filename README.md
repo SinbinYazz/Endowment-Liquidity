@@ -1,35 +1,72 @@
 # Endowment liquidity decision room
 
-Interactive interview prototype using **fictional data**. Open `index.html` in a browser; no install, account, backend, or build step is needed. The calculations are in `model.js`, separate from the UI in `app.js`.
+An interactive interview prototype for a university endowment investment team reviewing a new private-fund commitment. It shows exposure and liquidity constraints, compares approval with deferral, and produces a printable committee brief. All portfolio data and scenario settings are **fictional**.
 
-## Default scenario
+**[Open the live demo](https://sinbinyazz.github.io/Endowment-Liquidity/)** or open `index.html` locally. No install, account, backend, or build step is required. Calculations live in `model.js`; presentation and interactions live in `app.js` and `index.html`.
 
-A fictional $400M endowment considers a $20M private commitment after a 25% decline in marketable public assets. Starting balances are $20M cash, $260M marketable assets, $120M private NAV, and $90M existing unfunded commitments. An editable 60% **new-commitment approval gate** is inspired by FIU Foundation's published policy; this is not the fictional endowment's real policy.
+## Current UI defaults
 
-Approving adds $20M to unfunded immediately. With a 20% first-year new-call assumption, $4M is scheduled over 12 months. Deferring the proposal leaves the $45M of existing calls intact. Calls transfer cash to private NAV and reduce unfunded; they do not by themselves reduce NAV plus unfunded exposure. The app shows current exposure before the proposal and pro forma exposure after it. If liquid assets cannot cover scheduled needs, the portfolio projection stops at the first unmet month.
+Click **Reset** to restore these values. The public-asset shock default is now **5%**, following the latest UI change; 25% is a separate stress case.
 
-## Review and tests
+| Input | Reset value |
+|---|---:|
+| Opening portfolio | $400M: $20M cash, $260M marketable assets, $120M private NAV |
+| Existing unfunded commitments | $90M |
+| Public-asset shock | −5% |
+| Existing call pace | 100% of $45M annual base calls |
+| Private distributions | 50% of $12M annual base distributions = $6M |
+| Annual spending budget | $20M, or 5% of opening NAV |
+| Proposed new commitment | $20M |
+| New commitment called in year one | 20%, or $4M |
+| New-commitment approval gate | 60% |
+| Net-needs liquidity coverage floor | 3.0× |
+| Optional sale | $35M NAV, $15M unfunded transferred, 10% NAV discount |
 
-1. Open `index.html` and move the scenario controls. Use **Reset** for the walkthrough defaults.
-2. Run `node --test test/model.test.js` for calculation edge cases.
-3. Read [THESIS.md](THESIS.md) and [DECISIONS.md](DECISIONS.md) for evidence, assumptions, and limitations.
+All dollar amounts are USD millions. The 60% approval rule is inspired by FIU Foundation's published policy; its use here and the 3.0× liquidity floor are illustrative. See [THESIS.md](THESIS.md) for the sources and evidence boundaries.
 
-The scenario is illustrative, not a forecast or investment recommendation. No real client or employer data is included.
+## What the default case demonstrates
 
-## Decision envelope and committee brief
+| Output at the 5% shock | Approve $20M | Defer |
+|---|---:|---:|
+| Starting exposure, private NAV + unfunded / portfolio NAV | 59.4% | 54.3% |
+| Maximum modeled exposure | 61.0% | 55.6% |
+| First exposure above 60% | Month 5 | None through month 12 |
+| Initial net-needs liquidity coverage | 4.24× | 4.53× |
+| Year-end liquid assets | $204M | $208M |
+| Year-end unfunded commitments | $61M | $45M |
 
-The envelope checks exposure at scenario start and every month-end and requires all scheduled cash needs to be funded. It shows the maximum modeled exposure, first threshold crossing, full-year new commitment capacity, and a no-distributions sensitivity. Capacity is a conditional planning limit, separate from the current-position approval rule. When the existing portfolio already fails the envelope, zero new capacity does not imply that deferral repairs it.
+The full proposal fits at the starting date but crosses the exposure planning threshold during the year. Conditional commitment capacity is **$16.2M**, falling to **$10.2M** without distributions. The capacity button tests a rounded-down **$16M** proposal, which peaks at **59.9%** and leaves **$12.8M** of that new commitment uncalled after year one.
 
-At a 10% public shock with default cash-flow assumptions, starting exposure-only headroom is $14.4M but full-year capacity is $8.4M. With no distributions, full-year capacity is $2.4M. A button rounds capacity down to a whole-million proposal within the slider range. The committee brief compares approve versus defer, states remaining unfunded obligations, and prints on its own using **Print brief**. No later-year cash-flow schedule is modeled.
+The cash reserve begins drawing on marketable assets in month 4 under approval and month 5 under deferral. This is scheduled liquidation in the model; neither case exhausts total liquid assets. The shock is applied before the sales, and no additional marketable-asset transaction loss, cost basis, recovery, or expected alpha is modeled.
 
-## Liquidity, spending, and sale assumptions
+## Reading the decision outputs
 
-The default annual spending budget is $20M, or 5% of opening NAV, and is editable in dollars. This is a fictional budget; a cut is a proposed institutional budget decision. Coverage is scenario-start cash plus shocked marketable assets divided by calls + spending − scenario distributions for year one. The editable default floor is 3.0× and also constrains capacity. Nonpositive net needs display as no net funding need. This ratio is not a forecast of years of runway; a no-distributions sensitivity shows dependence on inflows.
+- **Decision Snapshot:** current exposure is shown before the proposal, and pro forma exposure includes the full new commitment. Under the modeled FIU-style rule, a new commitment requires an exception when current exposure already exceeds the gate. Deferral and a zero proposal request no new approval.
+- **Further public decline:** additional loss in the already-shocked marketable sleeve that reaches the starting pro forma gate. It responds to the selected shock and shows Already above gate or At gate when appropriate. The full-year path is a separate calculation.
+- **Liquidity Coverage:** initial cash plus shocked marketable assets divided by scheduled year-one calls + spending − distributions. The editable floor constrains commitment capacity. A no-distributions sensitivity removes the inflow offset. Nonpositive net needs display as no net funding need. Coverage is an initial funding-cushion ratio, not rolling coverage or years of forecast runway.
+- **Decision Envelope:** finds the largest new commitment meeting the initial coverage floor, the exposure threshold at scenario start and every month-end, and all scheduled cash needs. Starting exposure-only headroom does not include every constraint. If the existing portfolio fails, zero new capacity does not mean deferral repairs it. Later exposure crossings are pacing warnings rather than retroactive approval requirements.
+- **Committee Brief:** summarizes the decision, approve-versus-defer cash impact, remaining unfunded obligations, spending assumptions, and sensitivities. **Print brief** prints only this section; browser verification confirmed a single-page preview.
+- **Approve versus Defer / cash path:** existing calls continue in both cases. Calls transfer cash into private NAV and reduce unfunded dollar for dollar. Distributions transfer private NAV into cash without restoring unfunded. Spending leaves the portfolio. If a scheduled monthly need cannot be met, portfolio balances stop at that month and the first unmet amount is reported.
+- **Optional Sale Sensitivity:** sale proceeds equal sold NAV × (1 − discount). Transferred unfunded reduces obligations and adds no cash. Existing calls fall in proportion to unfunded transferred; distributions fall in proportion to NAV sold. Default sale proceeds are $31.5M, first-year call relief $7.5M, and distributions relinquished $1.75M (displayed $1.8M). Sale results do not replace the main proposal or its brief.
 
-The further-decline metric uses the remaining shocked public sleeve and includes the proposed commitment. It shows Already above gate or At gate as appropriate, and does not describe full-year exposure headroom.
+## Demo and submission materials
 
-The default sale sensitivity sells $35M NAV and transfers $15M unfunded. Cash proceeds are $31.5M at a 10% discount; transferred unfunded adds no cash. Existing calls fall by the transferred share of opening unfunded, and distributions fall by the sold share of opening private NAV. These are labeled proportional assumptions, not fund-level forecasts.
+- [PRODUCT_DEMO_SCRIPT.md](PRODUCT_DEMO_SCRIPT.md): recommended reviewer-facing, top-to-bottom demonstration. Start with Reset at 5% / $20M; temporarily test 160% existing calls, restore 100%, then test the $16M proposal. Target about 4½ minutes.
+- [RECORDING_SCRIPT.md](RECORDING_SCRIPT.md): detailed scenario rehearsal. It explicitly starts with a 25% stress case and later uses 10%; these differ from the UI default.
+- [THESIS.md](THESIS.md): value thesis, client questions, success-metric hypothesis, and sources.
+- [SUBMISSION.md](SUBMISSION.md): required deliverables and recording outline.
+- [DECISIONS.md](DECISIONS.md): current choices, verification evidence, and limitations.
 
-## GitHub Pages
+The user is handling the actual 3–5 minute recording and AI session export. Those files are not included in this repository.
 
-Live demo: https://sinbinyazz.github.io/Endowment-Liquidity/. GitHub Pages publishes the root of `main`; the site and its three static assets returned HTTP 200 after the successful deployment run.
+## Tests and developer notes
+
+Run `node --test test/model.test.js`. The current suite has **20 passing tests**, including commitment accounting, coverage-floor constraints, spending changes, sale transfers, relative downside, and infeasible cash paths.
+
+The browser passes its selected inputs explicitly to the model. The direct API call `LiquidityModel.calculate({})` still falls back to a **25% shock** in `model.js`; it does not represent the UI Reset case. Pass `shock: 0.05` explicitly to reproduce the current product demo. Historical 25% and $15M-spending cases remain in the tests intentionally.
+
+GitHub Pages publishes the root of `main`. The reviewed application files were checked against their hosted counterparts. Subsequent documentation updates do not change calculations.
+
+## Limits
+
+The model spans 12 months, uses even monthly cash flows, holds private NAV unchanged at the initial public shock, and assumes marketable assets can be sold when needed at shocked value. It excludes later returns, gifts, fees, taxes, borrowing, notice periods, and marketable-asset transaction costs. Private-sale execution and proportional cash-flow allocations are hypothetical. No later-year call schedule or investment-merit assessment is provided. Client validation is still needed for workflow value, input availability, policy interpretation, and willingness to pay.

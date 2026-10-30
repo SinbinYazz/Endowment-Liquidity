@@ -9,7 +9,7 @@ Send:
 
 ## Recommended product demonstration (about four and a half minutes)
 
-Use [PRODUCT_DEMO_SCRIPT.md](PRODUCT_DEMO_SCRIPT.md) for the reviewer-facing video. After Reset, prepare a 5% public shock and $20M proposal. Follow the panels top to bottom, then use the envelope shortcut to test a smaller $16M authorization. [RECORDING_SCRIPT.md](RECORDING_SCRIPT.md) remains the detailed two-scenario rehearsal and calculation reference; its scenarios are unchanged.
+Use [PRODUCT_DEMO_SCRIPT.md](PRODUCT_DEMO_SCRIPT.md) for the reviewer-facing video. Reset now restores the 5% public shock and $20M proposal. Follow the panels top to bottom, then use the envelope shortcut to test a smaller $16M authorization. [RECORDING_SCRIPT.md](RECORDING_SCRIPT.md) remains the detailed two-scenario rehearsal and calculation reference; it explicitly sets the 25% stress case after Reset.
 
 - **0:00–0:50:** Customer, problem, moment of use, and fictional 5% shock / $20M proposal.
 - **0:50–1:20:** Decision Snapshot: existing exposure versus the proposed commitment.
